@@ -1,16 +1,15 @@
 import express from "express";
 import { loginController } from "./controllers/loginController";
-import { requestLogger } from "./middlewares/requestLogger";
-import { notFoundException } from "./middlewares/notFoundException";
+import * as middlewares from './middlewares/';
 
 const app = express();
 app.use(express.json());
+app.use(middlewares.requestLogger)
 
 
 app.get("/login", loginController);
 app.post("/login", loginController);
 
-app.use(requestLogger)
-app.use(notFoundException)
+app.use(middlewares.notFoundException)
 
 export default app;
